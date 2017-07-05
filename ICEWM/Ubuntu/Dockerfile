@@ -143,6 +143,8 @@ ENV LANG C.UTF-8
 VOLUME ["/data", "/config"]
 RUN chown -R dugong:dugong /data && \
     chown -R dugong:dugong /config
+    
+EXPOSE 8888
 
 ENTRYPOINT ["tini", "--"]
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
