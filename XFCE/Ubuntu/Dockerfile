@@ -153,7 +153,7 @@ EXPOSE 8888
 
 ENTRYPOINT ["tini", "--"]
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
-CMD ["start-notebook.sh"]
+#CMD ["start-notebook.sh"]
 
 RUN chmod 777 /var/tmp && chown -R root:root /var/tmp && chmod 777 /tmp && chown -R root:root /tmp \
     && chown -R dugong:dugong /data && chown -R dugong:dugong /config
