@@ -47,3 +47,4 @@ else
     echo "Executing command: '$@'"
     exec "$@"
 fi
+chown dugong:dugong /data
