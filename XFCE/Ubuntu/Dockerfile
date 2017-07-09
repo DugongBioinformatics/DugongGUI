@@ -135,8 +135,8 @@ USER dugong
 RUN ~/.conda3/bin/conda update --all \
     && ~/.conda3/bin/conda install spyder anaconda-navigator jupyter jupyterhub jupyterlab ipython \
     && ~/.conda3/bin/conda clean -tipsy \
-    && pip3 install jupyter_client bash_kernel \
-    && python -m bash_kernel.install
+    && pip3 install jupyter_client bash_kernel
+    #&& python -m bash_kernel.install
     
 USER root
 
