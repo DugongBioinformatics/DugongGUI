@@ -122,16 +122,13 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
     && chmod +x /usr/local/bin/start.sh \
     && chmod +x /usr/local/bin/start-notebook.sh \
     && chmod +x /usr/local/bin/start-singleuser.sh \
-    && mkdir -p /headless/.cache/sessions/ && echo "" > /headless/.cache/sessions/xfce4-session-DugongGUI:1 \
     && /bin/bash /headless/install/set_user_permission.sh /dockerstartup /headless
     
 USER dugong
 
 RUN ~/.conda3/bin/conda update --all \
     && ~/.conda3/bin/conda install spyder anaconda-navigator jupyter jupyterhub jupyterlab ipython \
-    && ~/.conda3/bin/conda clean -tipsy \
-    && pip3 install jupyter_client bash_kernel
-    && python -m bash_kernel.install
+    && ~/.conda3/bin/conda clean -tipsy
 
 USER root
 
