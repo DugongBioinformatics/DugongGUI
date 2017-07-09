@@ -86,7 +86,7 @@ RUN apt-key adv --recv-key --keyserver keyserver.ubuntu.com "A6616109451BBBF2" \
     && apt-get update && apt-get install -y --allow-unauthenticated make grep sed sudo dpkg git wget zip \
     build-essential python3 python3-dev python3-numpy bzip2 locales ca-certificates vim gdebi-core bash-completion apt-utils \
     openjdk-8-jre openssh-server unzip curl ruby net-tools icedtea-8-plugin zlib1g-dev libqt4-dbus libqt4-network \
-    chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema python3-pip \
+    chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg screen mlocate nano asciinema python3-pip libzmq-dev \
     && ln -s /usr/bin/chromium-browser /usr/bin/google-chrome \
     && echo "CHROMIUM_FLAGS='--no-sandbox --start-maximized --user-data-dir'" > $HOME/.chromium-browser.init \
     && wget --quiet https://github.com/krallin/tini/releases/download/v0.10.0/tini \
@@ -136,7 +136,7 @@ RUN ~/.conda3/bin/conda update --all \
     && ~/.conda3/bin/conda install spyder anaconda-navigator jupyter jupyterhub jupyterlab ipython \
     && ~/.conda3/bin/conda clean -tipsy \
     && pip3 install jupyter_client bash_kernel
-    #&& python -m bash_kernel.install
+    && python -m bash_kernel.install
     
 USER root
 
@@ -150,13 +150,16 @@ ENV LANG C.UTF-8
 
 VOLUME ["/data", "/config"]
 
+
 EXPOSE 8888
 
 ENTRYPOINT ["tini", "--"]
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 CMD ["start-notebook.sh"]
 
-RUN chmod 777 /var/tmp && chown -R root:root /var/tmp && chmod 777 /tmp && chown -R root:root /tmp
-
+RUN chmod 777 /var/tmp && chown -R root:root /var/tmp && chmod 777 /tmp && chown -R root:root /tmp \
+    && chown -R dugong:dugong /data \
+    && chown -R dugong:dugong /config
+    
 WORKDIR /data
 USER dugong
